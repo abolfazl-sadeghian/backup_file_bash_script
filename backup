@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Starting backup"
+tar -cvzf ~/backup.tar.gz ~/{Documents,Downloads,Desktop,Pictures,Videos}
+date >> ~/backup.log

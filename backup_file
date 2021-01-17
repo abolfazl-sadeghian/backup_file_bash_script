@@ -1,0 +1,40 @@
+#!/bin/bash
+# This script backsup a single file into a location defined in the script
+# Abolfazl Sadeghian
+
+
+echo ""
+echo "Backup File Script"
+echo ""
+
+backup_file(){
+ 
+  local FILE="${1}"
+  echo "Trying to backup ${FILE}" 
+  # if the file exist 
+  if [[ -f "${FILE}" ]]
+  then
+    local BACKUP_FILE="/home/abolfazl/file_backups/$(basename ${FILE}).$(date +%F_%H:%M)"
+    echo "Backing up file ${FILE} to ${BACKUP_FILE}"
+
+  # The exit status of the function will be the exit status of the cp command.
+    cp -p ${FILE} ${BACKUP_FILE}
+    echo ""
+    echo "Backup located at : /home/abolfazl/file_backups/"
+    echo ""
+  else
+    return 1
+  fi
+
+}
+
+
+backup_file "${1}"
+
+if [[ "${?}" -eq '0' ]]
+then
+  echo 'File backup Successful ! '
+else
+  echo 'File backup Failed !'
+  exit 1
+fi
